@@ -1,0 +1,45 @@
+{
+  "name": "painel",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
+    "axios": "^0.18.0",
+    "babel-loader": "^8.0.5",
+    "echarts": "^4.2.1",
+    "echarts-for-react": "^2.0.15-beta.0",
+    "font-awesome": "^4.7.0",
+    "material-ui": "^0.20.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-excel-renderer": "^1.1.0",
+    "react-scripts": "2.1.8",
+    "reactotron-react-js": "^3.0.1",
+    "styled-components": "^4.2.0",
+    "write-file-p": "^1.0.7",
+    "xlsx": "^0.14.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4"
+  }
+}
