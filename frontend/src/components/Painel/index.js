@@ -3,13 +3,9 @@ import React, { Component } from 'react'
 import ReactEcharts from 'echarts-for-react'
 import boxplot from './boxplot'
 import { withStyles } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-
-import { preparaArrayTempoDryHoleDays } from '../../modules/charts'
-import dados from '../../services/dadosObject.json'
 
 import Filtros from '../Filtros'
+import { get } from '../../services/api'
 
 import styles from './styles'
 
@@ -20,20 +16,74 @@ class Painel extends Component {
     super(props)
     this.state = {
       dadosFiltrados: {},
+      holeType: '',
+      wellType: '',
+
+      mtdFrom: '',
+      mtdTo: '',
+      drilledIntFrom: '',
+      drilledIntTo: '',
+      wellTypeList: [],
+      holeTypeList: [],
     }
   }
 
-  componentDidMount = () => {
-    const dadosFiltrados = preparaArrayTempoDryHoleDays(dados)
+  handleChange = (e, campo) => {
+    this.setState({ [campo]: e.target.value })
+  }
+
+  handleLimparCampos = () => {
+    this.setState({
+      dadosFiltrados: {},
+      holeType: '',
+      wellType: '',
+
+      mtdFrom: '',
+      mtdTo: '',
+      drilledIntFrom: '',
+      drilledIntTo: '',
+    })
+  }
+
+  componentWillMount = () => {
+    const wellTypeList = get('well')
+    const holeTypeList = get('hole')
+    this.setState({ wellTypeList, holeTypeList })
+  }
+
+  handleSearch = () => {
+    const dadosFiltrados = get('painel', this.state)
     this.setState({ dadosFiltrados })
   }
 
   render() {
-    const { dadosFiltrados } = this.state
+    const {
+      dadosFiltrados,
+      holeType,
+      wellType,
+      mtdFrom,
+      mtdTo,
+      drilledIntFrom,
+      drilledIntTo,
+      wellTypeList,
+      holeTypeList,
+    } = this.state
     const { classes } = this.props
     return (
       <div>
-        <Filtros />
+        <Filtros
+          handleChange={this.handleChange}
+          holeType={holeType}
+          wellType={wellType}
+          mtdFrom={mtdFrom}
+          mtdTo={mtdTo}
+          drilledIntFrom={drilledIntFrom}
+          drilledIntTo={drilledIntTo}
+          handleSearch={this.handleSearch}
+          wellTypeList={wellTypeList}
+          holeTypeList={holeTypeList}
+          handleLimparCampos={this.handleLimparCampos}
+        />
         <div className={classes.container}>
           <ReactEcharts
             option={boxplot.getOption(dadosFiltrados)}

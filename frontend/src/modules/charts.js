@@ -23,23 +23,23 @@ const separarEmArraysPorAtributo = empresas => {
 const setEstilosDasEmpresas = empresas => {
   for (var i = 0; i < empresas.length; i++) {
     var color = 'gray'
-    if (empresas[i].groupName === 'Petrobras') color = '#999'
+    if (empresas[i].groupName === 'Petrobras') color = 'lightgreen'
     else {
       switch (i) {
         case 0:
-          color = 'brown'
+          color = 'salmon'
           break
         case 1:
           color = 'blue'
           break
         case 2:
-          color = 'DarkCyan'
+          color = 'yellow'
           break
         case 3:
-          color = 'salmon'
+          color = 'red'
           break
         case 4:
-          color = 'DarkOrange'
+          color = 'magenta'
           break
         default:
           color = 'gray'
