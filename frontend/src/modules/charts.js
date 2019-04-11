@@ -20,10 +20,42 @@ const separarEmArraysPorAtributo = empresas => {
   return novoArrayEmpresas
 }
 
+const getToolTip = () => {
+  return {
+    formatter: function(param) {
+      const numWells = param.name.split('(')[1].slice(0, -1)
+      const company = param.name.split('(')[0].slice(0, -1)
+      return [
+        '<strong>' + company + '</strong><hr style="margin: 0; padding:0; border-width: 2px;">',
+        '<div style="width: 100px;display: flex; flex-direction: column">',
+        '<div style="display: flex; flex-direction: row; justify-content: space-between"><div>P25: </div><div>' +
+          param.data.value[2] +
+          '</div></div>',
+        '<div style="display: flex; flex-direction: row; justify-content: space-between"><div>P50: </div><div>' +
+          param.data.value[3] +
+          '</div></div>',
+        '<div style="display: flex; flex-direction: row; justify-content: space-between"><div>P75: </div><div>' +
+          param.data.value[4] +
+          '</div></div><hr>',
+        '<div style="display: flex; flex-direction: row; justify-content: space-between"><div>Min: </div><div>' +
+          param.data.value[1] +
+          '</div></div>',
+        '<div style="display: flex; flex-direction: row; justify-content: space-between"><div>Max: </div><div>' +
+          param.data.value[5] +
+          '</div></div><hr>',
+        '<div style="display: flex; flex-direction: row; justify-content: space-between"><div>Wells: </div><div>' +
+          numWells +
+          '</div>',
+        '</div>',
+      ].join(' ')
+    },
+  }
+}
+
 const setEstilosDasEmpresas = empresas => {
   for (var i = 0; i < empresas.length; i++) {
     var color = 'gray'
-    if (empresas[i].groupName === 'Petrobras') color = 'lightgreen'
+    if (empresas[i].groupName.split(' ')[0] === 'Petrobras') color = 'lightgreen'
     else {
       switch (i) {
         case 0:
@@ -47,6 +79,7 @@ const setEstilosDasEmpresas = empresas => {
     }
 
     empresas[i].data.itemStyle = {
+      borderColor: color,
       normal: {
         color: color,
         lineStyle: {
@@ -58,6 +91,8 @@ const setEstilosDasEmpresas = empresas => {
         color: color,
       },
     }
+
+    empresas[i].data.tooltip = getToolTip()
   }
 
   return empresas
@@ -140,7 +175,7 @@ const ordenaECalculaSeparatriz = empresas => {
     }
 
     empresasComDadosAjustados.push({
-      groupName: empresas[i].groupName,
+      groupName: empresas[i].groupName + ` (${countUnique(empresas[i].wells)})`,
       data: data,
       P50: separatriz.P50,
       empresaTotalWells: countUnique(empresas[i].wells),

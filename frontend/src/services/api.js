@@ -22,7 +22,6 @@ const getWellType = () => {
 }
 
 const getDadosFiltrados = ({ holeType, wellType, mtdFrom, mtdTo, drilledIntFrom, drilledIntTo }) => {
-  //console.log({ holeType, wellType, mtdFrom, mtdTo, drilledIntFrom, drilledIntTo })
   const dadosFiltrados = []
   dados.forEach(item => {
     let filter = holeType ? item.holeType === holeType : true
@@ -33,7 +32,7 @@ const getDadosFiltrados = ({ holeType, wellType, mtdFrom, mtdTo, drilledIntFrom,
     filter = filter && (mtdFrom ? item.drilledIntervalInm <= drilledIntTo : true)
     if (filter) dadosFiltrados.push(item)
   })
-  //console.log(preparaArrayTempoDryHoleDays(dadosFiltrados))
+
   return preparaArrayTempoDryHoleDays(dadosFiltrados)
 }
 

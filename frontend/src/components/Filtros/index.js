@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary'
-
+import Typography from '@material-ui/core/Typography'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 import ChipFilter from './ChipFilter'
@@ -47,31 +47,47 @@ function Filtros({
         <ExpansionPanelDetails className={classes.container}>
           <div className={classes.container}>
             <div className={classes.campos}>
-              <div className={classes.types} variant="h5" component="h3">
-                <ChipFilter
-                  values={holeTypeList}
-                  placeholder="Hole Type"
-                  value={holeType}
-                  handleChange={handleChange}
-                  field="holeType"
-                />
-                <RangeFilter values={names} handleChange={handleChange} from={mtdFrom} to={mtdTo} field="mtd" />
+              <div className={classes.types}>
+                <Typography variant="title" gutterBottom>
+                  Type Filters:
+                </Typography>
+                <div className={classes.chipFilter}>
+                  <ChipFilter
+                    values={holeTypeList}
+                    placeholder="Hole Type"
+                    value={holeType}
+                    handleChange={handleChange}
+                    field="holeType"
+                  />
+                  <ChipFilter
+                    values={wellTypeList}
+                    placeholder="Well Type"
+                    value={wellType}
+                    handleChange={handleChange}
+                    field="wellType"
+                  />
+                </div>
               </div>
-              <div className={classes.intervals} variant="h5" component="h3">
-                <ChipFilter
-                  values={wellTypeList}
-                  placeholder="Well Type"
-                  value={wellType}
-                  handleChange={handleChange}
-                  field="wellType"
-                />
-                <RangeFilter
-                  values={names}
-                  handleChange={handleChange}
-                  from={drilledIntFrom}
-                  to={drilledIntTo}
-                  field="drilledInt"
-                />
+              <div className={classes.intervals}>
+                <div className={classes.mtdFilter}>
+                  <Typography variant="title" gutterBottom>
+                    MTD (m):
+                  </Typography>
+                  <RangeFilter values={names} handleChange={handleChange} from={mtdFrom} to={mtdTo} field="mtd" />
+                </div>
+                <div className={classes.drilledFilter}>
+                  <Typography variant="title" gutterBottom>
+                    Drilled Intervals (m):
+                  </Typography>
+                  <RangeFilter
+                    values={names}
+                    handleChange={handleChange}
+                    from={drilledIntFrom}
+                    to={drilledIntTo}
+                    field="drilledInt"
+                    title="Drilled Interval"
+                  />
+                </div>
               </div>
             </div>
             <ButtonFilter handleSearch={handleSearch} handleLimparCampos={handleLimparCampos} />

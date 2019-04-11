@@ -3,17 +3,7 @@ import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: 100,
-  },
-})
+import { textFieldsStyles } from './styles'
 
 class TextFields extends React.Component {
   state = {
@@ -31,6 +21,7 @@ class TextFields extends React.Component {
     return (
       <div>
         <TextField
+          variant="standard"
           id="standard-number"
           placeholder="From"
           value={from}
@@ -63,4 +54,4 @@ TextFields.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles)(TextFields)
+export default withStyles(textFieldsStyles)(TextFields)

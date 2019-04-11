@@ -31,11 +31,11 @@ class ChipFilter extends React.Component {
     return (
       <div className={classes.rootFilter}>
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="select-multiple-chip">{placeholder}</InputLabel>
+          <InputLabel htmlFor="select-chip">{placeholder}</InputLabel>
           <Select
             value={value}
             onChange={e => handleChange(e, field)}
-            input={<Input id="select-multiple-chip" />}
+            input={<Input id="select-chip" />}
             renderValue={() => (
               <div className={classes.chips}>
                 <Chip key={name} label={name} className={classes.chip} />

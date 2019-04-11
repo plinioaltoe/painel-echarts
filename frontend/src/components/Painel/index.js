@@ -16,13 +16,13 @@ class Painel extends Component {
     super(props)
     this.state = {
       dadosFiltrados: {},
-      holeType: '',
-      wellType: '',
+      holeType: 'N',
+      wellType: 'D',
 
-      mtdFrom: '',
-      mtdTo: '',
-      drilledIntFrom: '',
-      drilledIntTo: '',
+      mtdFrom: 500,
+      mtdTo: 1000,
+      drilledIntFrom: 500,
+      drilledIntTo: 1000,
       wellTypeList: [],
       holeTypeList: [],
     }

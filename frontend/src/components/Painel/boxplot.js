@@ -2,8 +2,10 @@ const boxplot = {
   getOption: dados => {
     const option = {
       title: {
-        text: 'Michelson-Morley Experiment',
+        text: dados.totalWellsGeral && `Dry hole days / 1,000m by Group (${dados.totalWellsGeral} Wells)`,
+        subtext: dados.totalWellsGeral && 'sorted by P50 values',
         left: 'center',
+        padding: [0, 0, 2000, 0],
       },
 
       toolbox: {
@@ -13,36 +15,69 @@ const boxplot = {
             title: { zoom: 'Ampliar', back: 'Restaurar' },
           },
         },
-        left: '3%',
+        left: '2%',
       },
 
       tooltip: {
-        trigger: 'axis',
+        trigger: 'item',
         axisPointer: {
           type: 'cross',
         },
       },
+
       grid: {
         bottom: '15%',
+        height: '70%',
       },
       xAxis: {
         type: 'category',
         data: dados.groupName,
-        scale: true,
+        nameGap: 30,
         boundaryGap: true,
         axisLine: { onZero: false },
         splitLine: { show: false },
-        splitNumber: 20,
+        splitNumber: 10,
         axisLabel: {
           formatter: '{value}',
+          rotate: 30,
+          margin: 18,
         },
       },
       yAxis: {
         type: 'value',
-        name: 'km/s minus 299,000',
+        scale: true,
         splitArea: {
           show: true,
         },
+        name: 'Dry hole days / 1,000m',
+
+        nameTextStyle: {
+          padding: 30,
+          fontWeight: 'bold',
+
+          // formatter: ['{name|styleName}'].join('\n'),
+
+          // rich: {
+          //   name: {
+          //     color: 'red',
+          //     lineHeight: 10,
+          //   },
+          //   b: {
+          //     backgroundColor: {
+          //       image: 'xxx/xxx.jpg',
+          //     },
+          //     height: 40,
+          //   },
+          //   x: {
+          //     fontSize: 18,
+          //     fontFamily: 'Microsoft YaHei',
+          //     borderColor: '#449933',
+          //     borderRadius: 4,
+          //   },
+          // },
+        },
+        nameLocation: 'center',
+        boundaryGap: ['0%', '-50%'],
       },
       dataZoom: [
         {
@@ -53,7 +88,7 @@ const boxplot = {
         {
           show: true,
           type: 'slider',
-          y: '90%',
+          y: '95%',
           start: 50,
           end: 100,
         },
@@ -64,18 +99,9 @@ const boxplot = {
           name: 'boxplot',
           type: 'boxplot',
           data: dados.dados,
-
-          tooltip: {
-            formatter: function(param) {
-              return [
-                'Experiment ' + param.name + ': ',
-                'upper: ' + param.data[5],
-                'Q3: ' + param.data[4],
-                'median: ' + param.data[3],
-                'Q1: ' + param.data[2],
-                'lower: ' + param.data[1],
-              ].join('<br/>')
-            },
+          itemStyle: {
+            borderColor: 'rgba(0,0,0,0.4)',
+            shadowColor: 'rgba(0,0,0,0.4)',
           },
         },
       ],
