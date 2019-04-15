@@ -9,16 +9,22 @@ export const get = (rota, filtros) => {
 
 const getHoleType = () => {
   return [
-    { value: 'O', name: 'Other' },
+    { value: null, name: 'All' },
+    { value: 'N', name: 'New Well' },
     { value: 'S', name: 'Slot Recovery / Slot Enhancement' },
     { value: 'G', name: 'Geological Sidetrack' },
-    { value: 'N', name: 'New Well' },
+    { value: 'O', name: 'Other' },
     { value: '-', name: '-' },
   ]
 }
 
 const getWellType = () => {
-  return [{ value: 'D', name: 'Development' }, { value: 'A', name: 'Appraisal' }, { value: 'E', name: 'Exploration' }]
+  return [
+    { value: null, name: 'All' },
+    { value: 'D', name: 'Development' },
+    { value: 'A', name: 'Appraisal' },
+    { value: 'E', name: 'Exploration' },
+  ]
 }
 
 const getDadosFiltrados = ({ holeType, wellType, mtdFrom, mtdTo, drilledIntFrom, drilledIntTo }) => {
@@ -27,9 +33,9 @@ const getDadosFiltrados = ({ holeType, wellType, mtdFrom, mtdTo, drilledIntFrom,
     let filter = holeType ? item.holeType === holeType : true
     filter = filter && (wellType ? item.wellType === wellType : true)
     filter = filter && (mtdFrom ? item.mtdInm >= mtdFrom : true)
-    filter = filter && (mtdFrom ? item.mtdInm <= mtdTo : true)
-    filter = filter && (mtdFrom ? item.drilledIntervalInm >= drilledIntFrom : true)
-    filter = filter && (mtdFrom ? item.drilledIntervalInm <= drilledIntTo : true)
+    filter = filter && (mtdTo ? item.mtdInm <= mtdTo : true)
+    filter = filter && (drilledIntFrom ? item.drilledIntervalInm >= drilledIntFrom : true)
+    filter = filter && (drilledIntTo ? item.drilledIntervalInm <= drilledIntTo : true)
     if (filter) dadosFiltrados.push(item)
   })
 
