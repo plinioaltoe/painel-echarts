@@ -1,9 +1,8 @@
 const boxplot = {
   getOption: dados => {
-    //if (!isEmpty(dados)) console.log('dados.groupName', dados.groupName)
     const legenda = dados.legenda
     const series = dados.series
-
+    let counterLegend = 0
     const option = {
       title: {
         text: dados.totalWellsGeral && `Dry hole days / 1,000m by Group (${dados.totalWellsGeral} Wells)`,
@@ -19,10 +18,22 @@ const boxplot = {
       },
 
       legend: {
-        show: true,
+        show: !isEmpty(legenda) ? true : false,
         data: !isEmpty(legenda) ? legenda : [],
         right: '0%',
         orient: 'vertical',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        padding: 15,
+        formatter: name => {
+          if (name === 'Others') return name
+          if (counterLegend >= legenda.length - 1) counterLegend = 0
+          counterLegend += 1
+          const numWells = name.split('(')[1].slice(0, -1)
+          const company = name.split('(')[0].slice(0, -1)
+          return `${getNumberWithOrdinal(counterLegend)} - ${numWells} Wells - ${company}`
+        },
       },
 
       toolbox: {
@@ -40,6 +51,8 @@ const boxplot = {
       },
 
       grid: {
+        height: '70%',
+        width: '70%',
         bottom: dados.groupName ? (dados.groupName.length <= 15 ? '15%' : '25%') : '15%',
       },
 
@@ -98,6 +111,12 @@ function isEmpty(obj) {
     if (obj.hasOwnProperty(key)) return false
   }
   return true
+}
+
+function getNumberWithOrdinal(n) {
+  var s = ['th', 'st', 'nd', 'rd'],
+    v = n % 100
+  return n + (s[(v - 20) % 10] || s[v] || s[0])
 }
 
 export default boxplot

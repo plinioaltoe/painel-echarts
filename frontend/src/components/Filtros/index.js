@@ -13,31 +13,20 @@ import ButtonFilter from './ButtonFilter'
 
 import styles from './styles'
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-]
-
 function Filtros({
   classes,
   handleSearch,
   handleChange,
   holeType,
   wellType,
+  year,
   mtdFrom,
   mtdTo,
   drilledIntFrom,
   drilledIntTo,
   wellTypeList,
   holeTypeList,
+  yearList,
   handleLimparCampos,
 }) {
   return (
@@ -47,6 +36,20 @@ function Filtros({
         <ExpansionPanelDetails className={classes.container}>
           <div className={classes.container}>
             <div className={classes.campos}>
+              <div className={classes.types}>
+                <Typography variant="title" gutterBottom>
+                  Year:
+                </Typography>
+                <div className={classes.chipFilter}>
+                  <ChipFilter
+                    values={yearList}
+                    placeholder="Year"
+                    value={year}
+                    handleChange={handleChange}
+                    field="year"
+                  />
+                </div>
+              </div>
               <div className={classes.types}>
                 <Typography variant="title" gutterBottom>
                   Type Filters:
@@ -73,14 +76,13 @@ function Filtros({
                   <Typography variant="title" gutterBottom>
                     MTD (m):
                   </Typography>
-                  <RangeFilter values={names} handleChange={handleChange} from={mtdFrom} to={mtdTo} field="mtd" />
+                  <RangeFilter handleChange={handleChange} from={mtdFrom} to={mtdTo} field="mtd" />
                 </div>
                 <div className={classes.drilledFilter}>
                   <Typography variant="title" gutterBottom>
                     Drilled Intervals (m):
                   </Typography>
                   <RangeFilter
-                    values={names}
                     handleChange={handleChange}
                     from={drilledIntFrom}
                     to={drilledIntTo}
@@ -101,6 +103,19 @@ function Filtros({
 Filtros.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.any,
+  handleSearch: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  holeType: PropTypes.string.isRequired,
+  wellType: PropTypes.string.isRequired,
+  year: PropTypes.string.isRequired,
+  mtdFrom: PropTypes.string.isRequired,
+  mtdTo: PropTypes.string.isRequired,
+  drilledIntFrom: PropTypes.string.isRequired,
+  drilledIntTo: PropTypes.string.isRequired,
+  wellTypeList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  holeTypeList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  yearList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleLimparCampos: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(Filtros)

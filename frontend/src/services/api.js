@@ -4,32 +4,41 @@ import { preparaArrayTempoDryHoleDays } from '../modules/charts'
 export const get = (rota, filtros) => {
   if (rota === 'hole') return getHoleType()
   if (rota === 'well') return getWellType()
+  if (rota === 'year') return getYear()
   if (rota === 'painel') return getDadosFiltrados(filtros)
 }
 
-const getHoleType = () => {
-  return [
-    { value: null, name: 'All' },
-    { value: 'N', name: 'New Well' },
-    { value: 'S', name: 'Slot Recovery / Slot Enhancement' },
-    { value: 'G', name: 'Geological Sidetrack' },
-    { value: 'O', name: 'Other' },
-    { value: '-', name: '-' },
-  ]
+const getHoleType = () => [
+  { value: null, name: 'All' },
+  { value: 'N', name: 'New Well' },
+  { value: 'S', name: 'Slot Recovery / Slot Enhancement' },
+  { value: 'G', name: 'Geological Sidetrack' },
+  { value: 'O', name: 'Other' },
+  { value: '-', name: '-' },
+]
+
+const getWellType = () => [
+  { value: null, name: 'All' },
+  { value: 'D', name: 'Development' },
+  { value: 'A', name: 'Appraisal' },
+  { value: 'E', name: 'Exploration' },
+]
+
+const getYear = () => {
+  const year = ['All']
+  dados.forEach((item) => {
+    if (!year.includes(item.year)) year.push(item.year)
+  })
+  year.sort((a, b) => a - b)
+
+  return year
 }
 
-const getWellType = () => {
-  return [
-    { value: null, name: 'All' },
-    { value: 'D', name: 'Development' },
-    { value: 'A', name: 'Appraisal' },
-    { value: 'E', name: 'Exploration' },
-  ]
-}
-
-const getDadosFiltrados = ({ holeType, wellType, mtdFrom, mtdTo, drilledIntFrom, drilledIntTo }) => {
+const getDadosFiltrados = ({
+  holeType, wellType, mtdFrom, mtdTo, drilledIntFrom, drilledIntTo,
+}) => {
   const dadosFiltrados = []
-  dados.forEach(item => {
+  dados.forEach((item) => {
     let filter = holeType ? item.holeType === holeType : true
     filter = filter && (wellType ? item.wellType === wellType : true)
     filter = filter && (mtdFrom ? item.mtdInm >= mtdFrom : true)

@@ -22,11 +22,53 @@ const MenuProps = {
 }
 
 class ChipFilter extends React.Component {
+  state = {
+    name: '',
+  }
+
+  get items() {
+    const { values } = this.props
+
+    if (values.some(this.isObject)) {
+      return values.map(item => (
+        <MenuItem key={item.value} value={item.value}>
+          {item.name}
+        </MenuItem>
+      ))
+    }
+
+    if (values.some(this.isString)) {
+      return values.map(item => (
+        <MenuItem key={item} value={item}>
+          {item}
+        </MenuItem>
+      ))
+    }
+
+    return []
+  }
+
+  get name() {
+    const { values, value } = this.props
+
+    if (values.some(this.isObject)) {
+      const idx = values.findIndex(item => item.value === value)
+      if (idx >= 0) return values[idx].name
+    }
+    if (values.some(this.isString)) {
+      const idx = values.findIndex(item => item === value)
+      if (idx >= 0) return values[idx]
+    }
+  }
+
+  isObject = (element, index, array) => element instanceof Object
+
+  isString = (element, index, array) => typeof element === typeof 'string'
+
   render() {
-    const { classes, values, placeholder, handleChange, value, field } = this.props
-    const idx = values.findIndex(item => item.value === value)
-    let name = ''
-    if (idx >= 0) name = values[idx].name
+    const {
+      classes, placeholder, handleChange, value, field,
+    } = this.props
 
     return (
       <div className={classes.rootFilter}>
@@ -38,16 +80,12 @@ class ChipFilter extends React.Component {
             input={<Input id="select-chip" />}
             renderValue={() => (
               <div className={classes.chips}>
-                <Chip key={name} label={name} className={classes.chip} />
+                <Chip key={this.name} label={this.name} className={classes.chip} />
               </div>
             )}
             MenuProps={MenuProps}
           >
-            {values.map(item => (
-              <MenuItem key={item.value} value={item.value}>
-                {item.name}
-              </MenuItem>
-            ))}
+            {this.items}
           </Select>
         </FormControl>
       </div>

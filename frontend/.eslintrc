@@ -22,7 +22,7 @@
         "SwitchCase": 1
       }
     ],
-    "react/jsx-one-expression-per-line": false,
+    "react/jsx-one-expression-per-line": 0,
     "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "semi": ["error", "never"],
     "comma-dangle": ["error", "always-multiline"],

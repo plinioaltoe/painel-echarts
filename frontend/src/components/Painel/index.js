@@ -25,6 +25,8 @@ class Painel extends Component {
       drilledIntTo: 1000,
       wellTypeList: [],
       holeTypeList: [],
+      year: [],
+      yearList: [],
     }
   }
 
@@ -42,13 +44,15 @@ class Painel extends Component {
       mtdTo: '',
       drilledIntFrom: '',
       drilledIntTo: '',
+      year: '',
     })
   }
 
   componentWillMount = () => {
     const wellTypeList = get('well')
     const holeTypeList = get('hole')
-    this.setState({ wellTypeList, holeTypeList })
+    const yearList = get('year')
+    this.setState({ wellTypeList, holeTypeList, yearList })
   }
 
   handleSearch = () => {
@@ -67,6 +71,8 @@ class Painel extends Component {
       drilledIntTo,
       wellTypeList,
       holeTypeList,
+      year,
+      yearList,
     } = this.state
     const { classes } = this.props
     return (
@@ -75,6 +81,7 @@ class Painel extends Component {
           handleChange={this.handleChange}
           holeType={holeType}
           wellType={wellType}
+          year={year}
           mtdFrom={mtdFrom}
           mtdTo={mtdTo}
           drilledIntFrom={drilledIntFrom}
@@ -82,6 +89,7 @@ class Painel extends Component {
           handleSearch={this.handleSearch}
           wellTypeList={wellTypeList}
           holeTypeList={holeTypeList}
+          yearList={yearList}
           handleLimparCampos={this.handleLimparCampos}
         />
         <div className={classes.container}>
