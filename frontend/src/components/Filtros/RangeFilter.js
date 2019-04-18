@@ -38,10 +38,11 @@ const TextFields = ({
 )
 
 TextFields.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
-  from: PropTypes.string.isRequired,
-  to: PropTypes.string.isRequired,
+  from: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  to: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   field: PropTypes.string.isRequired,
 }
 

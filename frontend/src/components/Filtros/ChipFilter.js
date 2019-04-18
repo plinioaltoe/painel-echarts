@@ -10,28 +10,24 @@ import Chip from '@material-ui/core/Chip'
 
 import styles from './styles'
 
-const ITEM_HEIGHT = 48
+const ITEM_HEIGHT = 40
 const ITEM_PADDING_TOP = 8
 const MenuProps = {
   PaperProps: {
     style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      height: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
       width: 250,
     },
   },
 }
 
 class ChipFilter extends React.Component {
-  state = {
-    name: '',
-  }
-
   get items() {
     const { values } = this.props
 
     if (values.some(this.isObject)) {
       return values.map(item => (
-        <MenuItem key={item.value} value={item.value}>
+        <MenuItem key={item.value} value={item}>
           {item.name}
         </MenuItem>
       ))
@@ -48,22 +44,18 @@ class ChipFilter extends React.Component {
     return []
   }
 
-  get name() {
-    const { values, value } = this.props
-
-    if (values.some(this.isObject)) {
-      const idx = values.findIndex(item => item.value === value)
-      if (idx >= 0) return values[idx].name
-    }
-    if (values.some(this.isString)) {
-      const idx = values.findIndex(item => item === value)
-      if (idx >= 0) return values[idx]
-    }
+  selectChips = (item) => {
+    const { classes } = this.props
+    return this.isObject(item) ? (
+      <Chip key={item.name} label={item.name} className={classes.chip} />
+    ) : (
+      <Chip key={item} label={item} className={classes.chip} />
+    )
   }
 
-  isObject = (element, index, array) => element instanceof Object
+  isObject = element => element instanceof Object
 
-  isString = (element, index, array) => typeof element === typeof 'string'
+  isString = element => typeof element === typeof 'string'
 
   render() {
     const {
@@ -73,15 +65,15 @@ class ChipFilter extends React.Component {
     return (
       <div className={classes.rootFilter}>
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="select-chip">{placeholder}</InputLabel>
+          <InputLabel htmlFor="select-multiple-chip">{placeholder}</InputLabel>
           <Select
+            multiple
+            className={classes.select}
             value={value}
             onChange={e => handleChange(e, field)}
-            input={<Input id="select-chip" />}
-            renderValue={() => (
-              <div className={classes.chips}>
-                <Chip key={this.name} label={this.name} className={classes.chip} />
-              </div>
+            input={<Input id="select-multiple-chip" />}
+            renderValue={selected => (
+              <div className={classes.chips}>{selected.map(item => this.selectChips(item))}</div>
             )}
             MenuProps={MenuProps}
           >
@@ -94,9 +86,15 @@ class ChipFilter extends React.Component {
 }
 
 ChipFilter.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
   values: PropTypes.array.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  value: PropTypes.array.isRequired,
   placeholder: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  field: PropTypes.string.isRequired,
 }
 
 export default withStyles(styles, { withTheme: true })(ChipFilter)

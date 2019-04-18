@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-
+import PropTypes from 'prop-types'
 import ReactEcharts from 'echarts-for-react'
-import boxplot from './boxplot'
 import { withStyles } from '@material-ui/core/styles'
+import boxplot from './boxplot'
 
 import Filtros from '../Filtros'
 import { get } from '../../services/api'
@@ -10,22 +10,24 @@ import { get } from '../../services/api'
 import styles from './styles'
 
 class Painel extends Component {
-  static propTypes = {}
+  static propTypes = {
+    // eslint-disable-next-line react/forbid-prop-types
+    classes: PropTypes.object.isRequired,
+  }
 
   constructor(props) {
     super(props)
     this.state = {
       dadosFiltrados: {},
-      holeType: 'N',
-      wellType: 'D',
-
+      holeType: [],
+      wellType: [],
+      year: [],
       mtdFrom: 500,
       mtdTo: 1000,
       drilledIntFrom: 500,
       drilledIntTo: 1000,
       wellTypeList: [],
       holeTypeList: [],
-      year: [],
       yearList: [],
     }
   }
@@ -37,14 +39,14 @@ class Painel extends Component {
   handleLimparCampos = () => {
     this.setState({
       dadosFiltrados: {},
-      holeType: '',
-      wellType: '',
+      holeType: [],
+      wellType: [],
+      year: [],
 
       mtdFrom: '',
       mtdTo: '',
       drilledIntFrom: '',
       drilledIntTo: '',
-      year: '',
     })
   }
 
@@ -56,7 +58,19 @@ class Painel extends Component {
   }
 
   handleSearch = () => {
-    const dadosFiltrados = get('painel', this.state)
+    const {
+      holeType, wellType, year, mtdFrom, mtdTo, drilledIntFrom, drilledIntTo,
+    } = this.state
+    const filtros = {
+      holeType,
+      wellType,
+      year,
+      mtdFrom,
+      mtdTo,
+      drilledIntFrom,
+      drilledIntTo,
+    }
+    const dadosFiltrados = get('painel', filtros)
     this.setState({ dadosFiltrados })
   }
 
@@ -97,6 +111,8 @@ class Painel extends Component {
             option={boxplot.getOption(dadosFiltrados)}
             style={{ height: '800px', width: '100%' }}
             className="react_for_echarts"
+            notMerge
+            lazyUpdate
           />
         </div>
       </div>

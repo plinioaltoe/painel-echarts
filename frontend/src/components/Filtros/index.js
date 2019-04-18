@@ -101,19 +101,21 @@ function Filtros({
 }
 
 Filtros.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   classes: PropTypes.object.isRequired,
-  children: PropTypes.any,
   handleSearch: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
-  holeType: PropTypes.string.isRequired,
-  wellType: PropTypes.string.isRequired,
-  year: PropTypes.string.isRequired,
-  mtdFrom: PropTypes.string.isRequired,
-  mtdTo: PropTypes.string.isRequired,
-  drilledIntFrom: PropTypes.string.isRequired,
-  drilledIntTo: PropTypes.string.isRequired,
-  wellTypeList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  holeTypeList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  holeType: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string, name: PropTypes.string }))
+    .isRequired,
+  wellType: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string, name: PropTypes.string }))
+    .isRequired,
+  year: PropTypes.arrayOf(PropTypes.string).isRequired,
+  mtdFrom: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  mtdTo: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  drilledIntFrom: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  drilledIntTo: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  wellTypeList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  holeTypeList: PropTypes.arrayOf(PropTypes.object).isRequired,
   yearList: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleLimparCampos: PropTypes.func.isRequired,
 }

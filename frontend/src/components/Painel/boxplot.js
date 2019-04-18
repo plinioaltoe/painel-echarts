@@ -1,7 +1,32 @@
+function isEmpty(obj) {
+  return obj ? Object.keys(obj).length === 0 : true
+}
+
+function getNumberWithOrdinal(n) {
+  const s = ['th', 'st', 'nd', 'rd']
+
+  const v = n % 100
+  return n + (s[(v - 20) % 10] || s[v] || s[0])
+}
+
+function getBottomProperty(groupName) {
+  if (groupName) {
+    return groupName.length <= 15 ? '15%' : '25%'
+  }
+  return '15%'
+}
+
+function getRotateProperty(groupName) {
+  if (groupName) {
+    return groupName.length <= 15 ? 30 : 70
+  }
+  return 30
+}
+
 const boxplot = {
-  getOption: dados => {
-    const legenda = dados.legenda
-    const series = dados.series
+  getOption: (dados) => {
+    const { legenda, series } = dados
+
     let counterLegend = 0
     const option = {
       title: {
@@ -18,7 +43,7 @@ const boxplot = {
       },
 
       legend: {
-        show: !isEmpty(legenda) ? true : false,
+        show: !isEmpty(legenda),
         data: !isEmpty(legenda) ? legenda : [],
         right: '0%',
         orient: 'vertical',
@@ -26,7 +51,7 @@ const boxplot = {
         borderColor: '#ccc',
         borderRadius: 5,
         padding: 15,
-        formatter: name => {
+        formatter: (name) => {
           if (name === 'Others') return name
           if (counterLegend >= legenda.length - 1) counterLegend = 0
           counterLegend += 1
@@ -53,7 +78,7 @@ const boxplot = {
       grid: {
         height: '70%',
         width: '70%',
-        bottom: dados.groupName ? (dados.groupName.length <= 15 ? '15%' : '25%') : '15%',
+        bottom: getBottomProperty(dados.groupName),
       },
 
       xAxis: {
@@ -66,7 +91,7 @@ const boxplot = {
         splitNumber: 20,
         axisLabel: {
           formatter: '{value}',
-          rotate: dados.groupName ? (dados.groupName.length <= 15 ? 30 : 70) : 30,
+          rotate: getRotateProperty(dados.groupName),
           margin: 18,
         },
       },
@@ -105,18 +130,4 @@ const boxplot = {
     return option
   },
 }
-
-function isEmpty(obj) {
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key)) return false
-  }
-  return true
-}
-
-function getNumberWithOrdinal(n) {
-  var s = ['th', 'st', 'nd', 'rd'],
-    v = n % 100
-  return n + (s[(v - 20) % 10] || s[v] || s[0])
-}
-
 export default boxplot

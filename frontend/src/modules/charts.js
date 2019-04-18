@@ -10,7 +10,7 @@ const separarEmArraysPorAtributo = (dados) => {
 
   const legendaOrdenada = ordenarLegendaPorTotalWells(legenda)
 
-  for (let k = 0; k < empresas.length; k++) {
+  for (let k = 0; k < empresas.length; k += 1) {
     totalWellsGeral += empresas[k].empresaTotalWells
     groupName[k] = empresas[k].groupName
     series[k] = empresas[k].series
@@ -26,10 +26,7 @@ const separarEmArraysPorAtributo = (dados) => {
   return novoArrayEmpresas
 }
 function isEmpty(obj) {
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) return false
-  }
-  return true
+  return obj ? Object.keys(obj).length === 0 : true
 }
 
 const getToolTip = () => ({
@@ -74,9 +71,9 @@ function getSeriesData(dados) {
   const legenda = []
 
   if (isEmpty(dados)) return []
-  for (let i = 0; i < dados.length; i++) {
+  for (let i = 0; i < dados.length; i += 1) {
     aux = []
-    for (let j = 0; j < dados.length; j++) {
+    for (let j = 0; j < dados.length; j += 1) {
       if (i === j) {
         aux.push(dados[i].series.data)
       } else aux.push([])
@@ -90,7 +87,8 @@ function getSeriesData(dados) {
   return { empresas, legenda }
 }
 
-const setEstilosDasEmpresas = (empresas) => {
+const setEstilosDasEmpresas = (empresasRecebidas) => {
+  const empresas = empresasRecebidas
   let idPetrobras = -1
 
   for (let i = 0; i < empresas.length; i += 1) {
@@ -186,7 +184,7 @@ const calculaSeparatriz = (dados) => {
   P50 = isEven ? (dados[middle] + dados[middle - 1]) / 2 : dados[middle]
   if (dados.length === 2) return { P25: dados[0], P50, P75: dados[1] }
 
-  for (let i = 0; i < dados.length; i++) {
+  for (let i = 0; i < dados.length; i += 1) {
     if (i > middle) serie75.push(dados[i])
     if (isEven) {
       if (i < middle - 1) serie25.push(dados[i])
@@ -211,7 +209,7 @@ const ordenaECalculaSeparatriz = (empresas) => {
   const empresasComDadosAjustados = []
   if (!empresas) return empresasComDadosAjustados
 
-  for (let i = 0, len = empresas.length; i < len; i++) {
+  for (let i = 0, len = empresas.length; i < len; i += 1) {
     const dadosOrdenados = empresas[i].dryHoleDaysPer1000m.sort((a, b) => a - b)
     const separatriz = calculaSeparatriz(dadosOrdenados)
     const min = dadosOrdenados[0]
@@ -252,7 +250,7 @@ export const preparaArrayTempoDryHoleDays = (dataBench) => {
 
   if (!dataBench) return empresas
 
-  for (let i = 0, len = dataBench.length; i < len; i++) {
+  for (let i = 0, len = dataBench.length; i < len; i += 1) {
     const index = empresas.findIndex(item => dataBench[i].groupName === item.groupName)
     const existeNoArray = index >= 0
     if (!existeNoArray) {

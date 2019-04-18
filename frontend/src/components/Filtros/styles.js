@@ -32,16 +32,14 @@ const styles = theme => ({
   },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 300,
+    minWidth: 150,
     maxWidth: 300,
   },
   chips: {
     display: 'flex',
     flexWrap: 'wrap',
   },
-  chip: {
-    margin: theme.spacing.unit / 4,
-  },
+
   noLabel: {
     marginTop: theme.spacing.unit * 3,
   },
@@ -73,6 +71,13 @@ const styles = theme => ({
   drilledFilter: {
     display: 'flex',
     flexDirection: 'column',
+  },
+  chip: {
+    margin: theme.spacing.unit / 4,
+  },
+  select: {
+    minWidth: 100,
+    maxWidth: 'fit-content',
   },
 })
 export default styles
