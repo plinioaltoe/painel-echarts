@@ -7,15 +7,11 @@ import Painel from './components/Painel'
 
 import './globals/styles.css'
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <BarraSup />
-        <Painel />
-      </div>
-    )
-  }
-}
+const App = () => (
+  <div>
+    <BarraSup />
+    <Painel />
+  </div>
+)
 
 export default App

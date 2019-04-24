@@ -7,9 +7,12 @@
     "@material-ui/icons": "^3.0.2",
     "axios": "^0.18.0",
     "babel-loader": "^8.0.5",
+    "convert-excel-to-json": "^1.6.1",
     "echarts": "^4.2.1",
     "echarts-for-react": "^2.0.15-beta.0",
+    "file-system": "^2.2.2",
     "font-awesome": "^4.7.0",
+    "fs": "^0.0.1-security",
     "material-ui": "^0.20.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
@@ -38,6 +41,7 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4"
+    "eslint-plugin-react": "^7.12.4",
+    "node-pre-gyp": "0.11.0"
   }
 }

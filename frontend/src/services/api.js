@@ -1,4 +1,4 @@
-import dados from './dadosObject.json'
+import dados from './dados.json'
 import { preparaArrayTempoDryHoleDays } from '../modules/charts'
 
 const getHoleType = () => [
@@ -42,6 +42,7 @@ const filtraEmArrays = (filtro, item) => {
   return pertenceAofiltro
 }
 
+
 const getDadosFiltrados = ({
   holeType,
   wellType,
@@ -54,12 +55,12 @@ const getDadosFiltrados = ({
   const dadosFiltrados = []
   dados.forEach((item) => {
     let filter = holeType.length === 0 ? true : filtraEmObjetos(holeType, item.holeType)
-    filter = filter && wellType.length === 0 ? true : filtraEmObjetos(wellType, item.wellType)
+    filter = filter && (wellType.length === 0 ? true : filtraEmObjetos(wellType, item.wellType))
     filter = filter && (mtdFrom === '' ? true : item.mtdInm >= mtdFrom)
     filter = filter && (mtdTo === '' ? true : item.mtdInm <= mtdTo)
     filter = filter && (drilledIntFrom === '' ? true : item.drilledIntervalInm >= drilledIntFrom)
     filter = filter && (drilledIntTo === '' ? true : item.drilledIntervalInm <= drilledIntTo)
-    filter = filter && year.length === 0 ? true : filtraEmArrays(year, item.year)
+    filter = filter && (year.length === 0 ? true : filtraEmArrays(year, item.year))
 
     if (filter) dadosFiltrados.push(item)
   })
