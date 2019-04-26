@@ -8,7 +8,7 @@ const separarEmArraysPorAtributo = (dados) => {
 
   let totalWellsGeral = 0
 
-  const legendaOrdenada = ordenarLegendaPorTotalWells(legenda)
+  const legendaOrdenada = !!legenda && ordenarLegendaPorTotalWells(legenda)
 
   for (let k = 0; k < empresas.length; k += 1) {
     totalWellsGeral += empresas[k].empresaTotalWells

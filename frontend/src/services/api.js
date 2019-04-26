@@ -42,7 +42,6 @@ const filtraEmArrays = (filtro, item) => {
   return pertenceAofiltro
 }
 
-
 const getDadosFiltrados = ({
   holeType,
   wellType,
@@ -54,6 +53,7 @@ const getDadosFiltrados = ({
 }) => {
   const dadosFiltrados = []
   dados.forEach((item) => {
+
     let filter = holeType.length === 0 ? true : filtraEmObjetos(holeType, item.holeType)
     filter = filter && (wellType.length === 0 ? true : filtraEmObjetos(wellType, item.wellType))
     filter = filter && (mtdFrom === '' ? true : item.mtdInm >= mtdFrom)
@@ -64,8 +64,8 @@ const getDadosFiltrados = ({
 
     if (filter) dadosFiltrados.push(item)
   })
-
-  return preparaArrayTempoDryHoleDays(dadosFiltrados)
+  
+  return dadosFiltrados.length > 0 ? preparaArrayTempoDryHoleDays(dadosFiltrados) : []
 }
 
 export const get = (rota, filtros) => {

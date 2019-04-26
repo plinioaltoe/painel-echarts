@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import './config/reactotron'
 
@@ -9,6 +9,8 @@ import './globals/styles.css'
 
 const App = () => (
   <div>
+
+  
     <BarraSup />
     <Painel />
   </div>
