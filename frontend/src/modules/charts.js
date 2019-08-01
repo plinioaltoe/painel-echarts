@@ -93,7 +93,7 @@ const setEstilosDasEmpresas = (empresasRecebidas) => {
 
   for (let i = 0; i < empresas.length; i += 1) {
     let color = 'gray'
-    if (empresas[i].groupName.split(' ')[0] === 'Petrobras') {
+    if (empresas[i].groupName.split(' ')[0] === 'Empresa3') {
       empresas[i].legenda = true
       color = 'lightgreen'
       idPetrobras = i

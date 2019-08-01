@@ -9,8 +9,6 @@ import './globals/styles.css'
 
 const App = () => (
   <div>
-
-  
     <BarraSup />
     <Painel />
   </div>
