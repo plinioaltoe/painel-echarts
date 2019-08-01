@@ -1,1 +1,56 @@
-"# painel" 
+# ReactJS - An echart graph showing the bentchmark of some companies
+
+1. Install dependencies: `yarn` or `npm install`
+2. Run: `yarn start` or `npm start`
+3. On your browse, put this url: `http://localhost:3000/`
+
+* The `backend` folder does not contains an API yet. This project runs only with frontend, so you can go to `frontend` folder and have fun.
+
+"dependencies": {
+  "name": "painel",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^3.9.3",
+    "@material-ui/icons": "^3.0.2",
+    "axios": "^0.18.0",
+    "babel-loader": "^8.0.5",
+    "convert-excel-to-json": "^1.6.1",
+    "echarts": "^4.2.1",
+    "echarts-for-react": "^2.0.15-beta.0",
+    "file-system": "^2.2.2",
+    "font-awesome": "^4.7.0",
+    "fs": "^0.0.1-security",
+    "material-ui": "^0.20.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-input-range": "^1.3.0",
+    "react-rangeslider": "^2.2.0",
+    "react-scripts": "2.1.8",
+    "reactotron-react-js": "^3.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "node-pre-gyp": "0.11.0"
+  }
+}
+
